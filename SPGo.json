@@ -1,0 +1,12 @@
+{
+    "sourceDirectory": "src",
+    "sharePointSiteUrl": "https://slalomchicandc.sharepoint.com/sites/astellastest/supmgmt",
+    "workspaceRoot": "/Users/lennyankireddi/Code/Astellas/Supplier Scorecard/Source",
+    "publishWorkspaceOptions": {
+        "destinationFolder": "/",
+        "globPattern": "/Users/lennyankireddi/Code/Astellas/Supplier Scorecard/Source/src/**/*.*",
+        "localRoot": "/Users/lennyankireddi/Code/Astellas/Supplier Scorecard/Source/src"
+    },
+    "publishingScope": "Major",
+    "authenticationType": "Digest"
+}
