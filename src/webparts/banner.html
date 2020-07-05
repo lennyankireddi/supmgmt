@@ -1,0 +1,55 @@
+<div class="banner-container">
+	<div class="title-container">
+		<img src="../SiteAssets/images/dashboard.png" alt="Supplier Management">
+		<a href='javascript:window.location.href = _spPageContextInfo.webAbsoluteUrl;'><div class="site-title">Supplier Management</div></a>
+	</div>
+	<div class="search-container">
+		<div class="search-input">
+			<input type="text" id="txtSearch" placeholder="Search this site...">
+			<img src="../SiteAssets/images/search.png" alt="Search" id="btnSearch">
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			url: _spPageContextInfo.webAbsoluteUrl + '/_api/web/Title',
+			method: "GET",
+			headers: {
+				"accept": "application/json;odata=verbose"
+			},
+			success: function(data) {
+				$('.site-title').text(data.d.Title);
+			},
+			error: function(err) {
+				console.log(JSON.stringify(err));
+			}
+		});
+	});
+
+	// $(document).on('click', '.title-container', function() {
+	// 	window.location.href = _spPageContextInfo.webAbsoluteUrl;
+	// });
+
+	$(document).on('click', '#btnSearch', function() {
+		if ($('#txtSearch').val()) {
+			var searchUrl = _spPageContextInfo.webAbsoluteUrl + '/_layouts/15/osssearchresults.aspx?k=' + $('#txtSearch').val();
+			window.open(searchUrl, '_blank');
+		}
+	});
+
+	$(document).on('keyup', '#txtSearch', function(e) {
+		if (e.keyCode === 13) {
+			$('#btnSearch').click();
+		}
+	});
+
+	$(document).on('focus', '.search-input input', function() {
+		$('.search-input').addClass('search-input-focused');
+	});
+
+	$(document).on('blur', '.search-input input', function() {
+		$('.search-input').removeClass('search-input-focused');
+	});
+</script>

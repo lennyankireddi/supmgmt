@@ -1,0 +1,29 @@
+<div class="container vendor-list-container">
+    <div class="part-title vendor-list-title">
+        Suppliers
+    </div>
+    <table border="0" id="vendorTable" class="stripe row-border">
+        <thead>
+            <td>Supplier</td>
+            <td>Region</td>
+            <td>Segment</td>
+            <td>Category</td>
+            <td id="pyColHeader">Previous FY Spend (USD)</td>
+            <td id="cyColHeader">Current FY Spend (USD)</td>
+            <td id="csatColHeader">CSAT</td>
+            <td>Supplier Health</td>
+        </thead>
+        <tbody id="vendorTableBody">
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function() {
+        $($('.vendor-list-container').closest('td').siblings('td')[0]).remove();
+        var year = (new Date()).getFullYear();
+        $("#cyColHeader").html("FY " + (year - 1).toString() + " Spend<br/>(M USD)");
+        $("#pyColHeader").html("FY " + (year - 2).toString() + " Spend<br/>(M USD)");
+        $("#csatColHeader").html("CSAT<br/>(FY " + (year - 1).toString() + ")");
+        PopulateVendorList();
+    });
+</script>

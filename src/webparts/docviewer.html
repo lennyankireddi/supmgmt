@@ -1,0 +1,158 @@
+<div class="doc-viewer-container">
+	<div class="part-title doc-viewer-title">Reference</div>
+	<div class="docs-container"></div>
+</div>
+<script>
+	var startFolder = 'Supplier Segmentation Documents';
+
+	function RetrieveDocIcon(extension) {
+		switch(extension) {
+			case '.doc':
+			case '.docx':
+			case '.dotx':
+				return '<i class="far fa-file-word"></i>';
+			case '.xls':
+			case '.xlsx':
+			case '.xlsb':
+			case '.xlsm':
+				return '<i class="far fa-file-excel"></i>';
+			case '.ppt':
+			case '.pptx':
+			case '.potx':
+				return '<i class="far fa-file-powerpoint"></i>';
+			case '.pdf':
+				return '<i class="far fa-file-pdf"></i>';
+			case '.png':
+			case '.gif':
+			case '.jpg':
+			case '.jpeg':
+			case '.tiff':
+				return '<i class="far fa-file-image"></i>';
+			case '.wav':
+			case '.mp3':
+				return '<i class="far fa-file-audio"></i>';
+			case '.mov':
+			case '.mp4':
+				return '<i class="far fa-file-video"></i>';
+			case '.txt':
+			case '.rtf':
+				return '<i class="far fa-file-alt"></i>';
+			case '.xml':
+			case '.json':
+				return '<i class="far fa-file-code"></i>';
+			default:
+				return '<i class="far fa-file"></i>';
+		}
+	}
+
+	function GetDocHtml(file) {
+		var fileExtension = file.Name.substr(file.Name.lastIndexOf('.'));
+		var docIcon = RetrieveDocIcon(fileExtension);
+		var docHtml = '<div class="doc-element">' +
+			'<div class="doc-icon">' + docIcon + '</div>' +
+			'<div class="doc-link">' +
+			'<a href="' + file.ServerRelativeUrl + '">' +
+			'<span class="doc-name">' + file.Name + '</span>' +
+			'</a>' +
+			'</div>' +
+			'</div>';
+		return docHtml;
+	}
+
+	function AddFolderAndFiles(folderName, files) {
+		var folderMoniker = folderName.split(' ').join('').toLowerCase();
+		var folderHtml = '<div class="doc-folder doc-folder-' + folderMoniker + '">' +
+			'<div class="folder-title">' + folderName + '</div>' +
+			'<div class="docs-collection docs-collection-' + folderMoniker + '">';
+
+		$.each(files, function(i, file) {
+			folderHtml += GetDocHtml(file);
+		});
+
+		folderHtml += '</div>' +
+			'</div>';
+		$('.docs-container').append(folderHtml);
+	}
+
+	function ProcessSubfolders(folderId) {
+		$.ajax({
+			url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/getfolderbyid('" + folderId + "')/Folders?$select=UniqueId,Name,ItemCount&$orderby=Name asc",
+			method: "GET",
+			headers: {
+				"accept": "application/json;odata=verbose"
+			},
+			success: function(data) {
+				var folders = data.d.results;
+				folders.sort(function(a, b) {
+					if (a.Name < b.Name) return -1;
+					else if (a.Name > b.Name) return 1;
+					else return 0;
+				});
+				$.each(folders, function(i, folder) {
+					var folderId = folder.UniqueId;
+					var folderName = folder.Name;
+					if (folderName != "Forms") {
+						GetFilesInFolder(folderId)
+							.done(function(data) {
+								if (data.d.results.length > 0) {
+									AddFolderAndFiles(folderName, data.d.results);
+								}
+								ProcessSubfolders(folderId);
+							}).fail(function(err) {
+								console.log(JSON.stringify(err));
+							});
+					}
+				});
+			},
+			error: function(err) {
+				console.log(JSON.stringify(err));
+			}
+		});
+	}
+
+	function GetFilesInFolder(folderId) {
+		var folderUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/getfolderbyid('" + folderId + "')/Files?$select=Name,ServerRelativeUrl";
+		return $.ajax({
+			url: folderUrl,
+			method: "GET",
+			headers: {
+				"accept": "application/json;odata=verbose"
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		$.ajax({
+			url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/getfolderbyserverrelativeurl('" + _spPageContextInfo.webServerRelativeUrl + "/" + startFolder + "')?$select=Name,UniqueId,ItemCount&$filter=F",
+			method: "GET",
+			headers: {
+				"accept": "application/json;odata=verbose"
+			},
+			success: function(data) {
+				var folderId = data.d.UniqueId;
+				var folderName = data.d.Name;
+				GetFilesInFolder(folderId)
+					.done(function(data) {
+						if (data.d.results.length > 0) {
+							AddFolderAndFiles(startFolder, data.d.results);
+						}
+						ProcessSubfolders(folderId);
+						$('.docs-collection').first().show();
+					}).fail(function(err) {
+						console.log(JSON.stringify(err));
+					});
+			},
+			error: function(err) {
+				console.log(JSON.stringify(err));
+			}
+		});
+	});
+
+	$(document).on('click', '.folder-title', function() {
+		$('.doc-folder').css('background-color', 'transparent');
+		$(this).closest('.doc-folder').css('background-color', '#FFF');
+		$('.docs-collection').hide(250);
+		$(this).next('.docs-collection').show(250);
+	});
+	
+</script>

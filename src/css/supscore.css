@@ -1,0 +1,575 @@
+/* Styles for the Astellas VSM Supplier Scorecard */
+
+/* #region SharePoint resets */
+
+#s4-bodyContainer {
+    padding-bottom: 0px;
+}
+.ms-webpartzone-cell {
+    margin-bottom: 0px !important;
+}
+/* #endregion SharePoint resets */
+
+/* #region Banner */
+
+.banner-container {
+    background-image: linear-gradient(to bottom right, #554451, #946989);
+    color: #FFF;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.title-container img {
+    width: 64px;
+}
+
+.title-container a {
+    text-decoration: none;
+}
+
+.site-title {
+    margin-left: 20px;
+    color: #FFF;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    border-radius: 10px;
+    padding: 15px;
+    transition: 0.25s ease-in-out;
+}
+
+.search-input-focused {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 20px #333;
+}
+
+.search-input input {
+    border: none;
+    background-color: none;
+    margin-right: 10px;
+    outline: none;
+    width: 300px;
+}
+
+.search-input img {
+    width: 24px;
+    height: 24px;
+}
+
+/* #endregion Banner */
+
+/* #region Vendor Table */
+.vendor-list-container {
+    padding: 30px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+}
+.part-title {
+    font-size: 16px;
+    font-weight: 900;
+}
+#vendorTable {
+    background-color: #DCD3DA;
+    width: 100%;
+    box-shadow: 0px 0px 5px 2px #CCC;
+    border-bottom: none;
+    border-radius: 10px;
+}
+#vendorTable thead {
+    font-weight: 700;
+    color: #333;
+}
+#vendorTable tr.odd {
+    background-color: #F1F1F1;
+}
+#vendorTable tr.even {
+    background-color: #FFF;
+}
+#vendorTableBody {
+    display: block;
+    height: 400px;
+    overflow: auto;
+}
+#vendorTable thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#vendorTableBody a:link,
+#vendorTableBody a:active,
+#vendorTableBody a:visited,
+#vendorTableBody a:hover {
+    color: #663399;
+}
+.vendor-list-container select {
+    border: 1px solid #DDD4DA;
+}
+.vendor-list-container select:focus {
+    outline: none;
+}
+.dataTables_wrapper .dataTables_filter input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #CCC;
+    outline: none;
+    font-size: 14px;
+    transition: 0.25s ease-in-out;
+}
+.dataTables_wrapper .dataTables_filter input:focus {
+    outline: none;
+    border-bottom: 2px solid #b389a5;
+}
+.sentiment-icon {
+    width: 24px;
+}
+/* #endregion Vendor Table */
+
+/* #region Doc Viewer */
+
+.doc-viewer-container {
+    padding: 32px;
+}
+
+.docs-container {
+    background-color: #EEE7EB;
+    margin-top: 30px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    box-shadow: 0px 0px 5px 2px #CCC;
+    border-radius: 10px;
+}
+
+.doc-folder {
+    padding: 20px;
+}
+
+.doc-folder:not(:first-child) {
+    margin-top: 1px solid #CCC;
+}
+
+.folder-title {
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.docs-collection {
+    display: none;
+}
+
+.doc-element {
+    margin-top: 10px;
+    margin-left: 30px;
+    display: flex;
+}
+
+.doc-icon {
+    color: #946989;
+}
+
+.doc-link {
+    margin-left: 15px;
+}
+
+.doc-link a:link, 
+.doc-link a:active, 
+.doc-link a:visited {
+    color: #554451;
+    text-decoration: none;
+}
+
+.doc-link a:hover,
+.doc-link a:focus {
+    color: #946989;
+}
+
+/* #endregion Doc Viewer */
+
+/* Supplier page styles start */
+.scorecard-container {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #333;
+}
+.vendor-banner {
+    background-color: #2E222A;
+    color: #FFF;
+    padding: 10px 20px;
+}
+.vendor-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+.vendor-health {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.health-indicators {
+    display: flex;
+    align-items: center;
+}
+.edit-health-form {
+    display: none;
+    margin-top: 20px;
+}
+.health-controls {
+    display: flex;
+}
+#btnSaveHealth {
+    margin-left: 20px;
+}
+#saveHealthSpinner {
+    display: none;
+}
+.vendor-attributes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.vendor-props {
+    text-align: right;
+}
+.attr-label {
+    color: #aaa;
+    text-align: right;
+}
+.attr-value {
+    color: #fff;
+    text-align: left;
+}
+.reporting-period {
+    color: white;
+}
+.health-label {
+    margin-right: 10px;
+}
+.health-indicator {
+    width: 48px;
+    margin-right: 2px;
+}
+.edit-button {
+    margin-left: 20px;
+    display: none;
+    cursor: pointer;
+}
+.viz-container {
+    background-color: #f4f1f3;
+    padding: 30px;
+}
+.viz-group {
+    background-color: #FFF;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+.viz-group-header {
+    font-size: 16px;
+    font-weight: 900;
+    color: #000;
+}
+.viz-field {
+    margin-top: 20px;
+    min-height: 100px;
+}
+.viz-box {
+    padding: 10px;
+}
+.viz-title {
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+}
+.value-prefix {
+    color: #946989;
+    font-size: 30px;
+}
+.year-spend-value {
+    color: #946989;
+    font-family: Rubik, sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+}
+.value-suffix {
+    color: #946989;
+    font-size: 30px;
+}
+.supp-rev-number {
+    color: #ef737d;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+.pct-spend-value {
+    fill: #946989;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+.qt-label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.qt-axis-label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 10px;
+}
+.sup-rev-caption {
+    fill: rgb(200, 200, 200);
+    font-size: 8px;
+    font-weight: bold;
+}
+.sup-rev-pct {
+    fill: #ef737d;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+.neg-spend-box {
+    display: none;
+}
+.neg-spend-msg {
+    color: #888;
+    font-size: 12px;
+    font-weight: 400;
+}
+.neg-spend-num {
+    color: #658D1B;
+    font-size: 12px;
+    font-weight: 500;
+}
+.grp-bar-neg {
+    fill: rgba(163, 22, 55, 1);
+}
+.grp-bar-pos {
+    fill: #946989;
+}
+.grp-bar-back:nth-child(even) {
+    fill: #e9e1df;
+}
+.grp-bar-back:nth-child(odd) {
+    fill: #DCD3DA;
+}
+.grp-bar-label {
+    fill: #946989;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+.grp-name-label {
+    fill: rgba(120, 120, 120, 1);
+    font-size: 12px;
+    font-weight: 500;
+}
+.hdr-label {
+    fill: rgba(120, 120, 120, 1);
+    font-size: 9px;
+    font-weight: 300;
+}
+.cpi-point {
+    stroke: #6c5b7f;
+    stroke-width: 1;
+    fill: white;
+}
+.cpi-line {
+    stroke: #6c5b7f;
+    stroke-width: 3;
+    fill-opacity: 0;
+}
+.kpi-point {
+    stroke: #c16b86;
+    stroke-width: 1;
+    fill: white;
+}
+.kpi-line {
+    stroke: #c16b86;
+    stroke-width: 3;
+    fill-opacity: 0;
+}
+.sla-bk-bar:nth-child(even) {
+    fill: #e9e1df;
+}
+.sla-bk-bar:nth-child(odd) {
+    fill: #DCD3DA;
+}
+.sla-x-axis {
+    font-family: 'Rubik', sans-serif;
+    stroke: black;
+    stroke-width: 1;
+    text-orientation: sideways;
+    text-anchor: start;
+}
+.sla-y-axis {
+    font-family: 'Rubik', sans-serif;
+    stroke: black;
+    stroke-width: 1;
+}
+.sla-box {
+    display: inline-block;
+    padding: 3px;
+    width: 120px;
+}
+.cpi-box {
+    background: #6c5b7f;
+    margin-left: 40px;
+}
+.kpi-box {
+    margin-left: 5px;
+    background: #c16b86;
+}
+.sla-box-title {
+    font-size: 10px;
+    color: white;
+    font-weight: 600;
+}
+.sla-box-metric {
+    font-size: 10px;
+    width: 55%;
+    color: white;
+    display: inline-block;
+}
+.sla-box-measure {
+    background: white;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px;
+    width: 40%;
+    display: inline-block;
+    text-align: center;
+}
+.csat-line {
+    stroke: #CCC;
+    stroke-width: 1;
+}
+.csat-point {
+    fill: #6c5b7f;
+}
+.csat-text {
+    fill: #FFF;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+.csat-nums {
+    font-size: 12px;
+    fill: #888;
+}
+.csat-label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    fill: #888;
+}
+.red-text {
+    fill: #F54746;
+    font-size: 10px;
+    font-weight: 400;
+}
+.green-text {
+    fill: #43CC86;
+    font-size: 10px;
+    font-weight: 400;
+}
+.grey-back {
+    background-color: #EEE;
+}
+g.sla-x-axis text {
+    text-anchor: start;
+}
+.edit-comments-form {
+    display: none;
+}
+.comment-text {
+    margin-top: 20px;
+}
+.save-button {
+    border: 1px solid #946989 !important;
+    color: #946989  !important;
+    background-color: #FFF  !important;
+}
+.save-button:hover {
+    background-color: #946989  !important;
+    color: #FFF  !important;
+}
+#saveCommentsSpinner {
+    display: none;
+}
+#saveCsatSpinner {
+    display: none;
+}
+/* Supplier page styles end */
+
+
+/* Admin page styles start */
+.help-text {
+    font-size: 12px;
+    color: #333;
+}
+.gen-container {
+    margin-top: 10px;
+}
+.process-message {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #888;
+}
+.field-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+.label-buffer {
+    margin-right: 20px;
+}
+.status-bar {
+    background-color: #EEE;
+    border: #CCC;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px;
+}
+.log-list {
+    font-size: 12px;
+    margin-top: 10px;
+    height: 360px;
+    overflow: auto;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+.log-list li.info {
+    color: blue;
+}
+.log-list li.warning {
+    color: orange;
+}
+.log-list li.success {
+    color: green;
+}
+.log-list li.error {
+    color: red;
+}
+.log-list li.indent {
+    /* margin-left: 30px; */
+}
+/* Admin page styles end */
